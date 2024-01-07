@@ -1,0 +1,41 @@
+html,
+body,
+main {
+  margin: 0;
+  padding: 0;
+  min-height: 90vh;
+}
+main {
+  padding: 3rem 4rem;
+}
+
+svg {
+  font-size: 3rem;
+}
+
+h2 {
+  margin-bottom: 2rem;
+}
+hr {
+  border: none;
+  background-color: $oc-gray-7;
+  height: 1px;
+}
+section {
+  line-height: 2;
+}
+code {
+  background-color: $oc-blue-9;
+  color: $oc-blue-1;
+  font-family: monospace;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+}
+ul {
+  list-style-type: none;
+}
+li {
+  gap: 0.5rem;
+  align-items: center;
+  display: flex;
+}

@@ -1,0 +1,118 @@
+.icon {
+  &--primary { color: $oc-blue-5; }
+  &--red { color: $oc-red-5; }
+  &--green { color: $oc-green-5; }
+  &--yellow { color: $oc-yellow-5; }
+  &--clickable {
+    transition: all $time-transitions;
+    cursor: pointer;
+
+    &:hover { fill: white !important; }
+  }
+  &--disabled {
+    fill: gray;
+    cursor: not-allowed;
+  }
+}
+
+.nav {
+  background: $oc-gray-8;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+  }
+  &__item--logo { margin-left: auto; }
+  &__btn {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0;
+    gap: 0.5rem;
+    padding: 1.5rem 3rem;
+    cursor: pointer;
+    transition: all $time-transitions;
+
+    &:hover { background-color: $oc-gray-7; }
+  }
+}
+
+.table {
+  width: 100%;
+  border-radius: 1rem;
+  margin: 0 auto;
+  
+  &__wrapper {
+    margin: 0 auto;
+    max-width: 120rem;
+    width: 90%;
+    min-width: 10rem;
+    border-radius: 1rem;
+    overflow-x: auto;
+  }
+  tr {
+    background-color: $oc-gray-8;
+  }
+  tr:nth-child(even) {
+    background: $oc-gray-9;
+  }
+  td,
+  th {
+    padding: 1rem 1.5rem;
+    white-space: nowrap;
+  }
+  &,
+  td,
+  th {
+    border: 1px solid $oc-gray-7;
+    border-collapse: collapse;
+    text-align: center;
+  }
+}
+
+.form {
+  background: $oc-gray-8;
+  padding: 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  & fieldset { border: 1px solid $oc-gray-7; }
+  & legend { padding-left: 1rem; }
+  &__option {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+  }
+  &__seperator {
+    border: none;
+    background-color: $oc-gray-7;
+    height: 1px;
+  }
+  #file-download-btn, #file-upload-btn {
+    border: none;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+    font-size: 1.1em;
+    flex: 1;
+    gap: 1rem;
+    transition: all $time-transitions;
+
+    &:hover { background-color: $oc-gray-7; }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .nav {
+    &__btn {
+      padding: 1rem 1.5rem;
+      font-size: 2rem;
+    }
+  }
+}

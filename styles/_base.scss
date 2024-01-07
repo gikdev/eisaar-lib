@@ -1,0 +1,37 @@
+* {
+  box-sizing: inherit;
+  color: inherit;
+  font-family: inherit;
+}
+html {
+  background: $oc-gray-9;
+  color: $oc-gray-0;
+  font-family: 'Vazirmatn', sans-serif;
+  line-height: 1.4;
+  font-size: 62.5%;
+  direction: rtl;
+}
+body {
+  font-size: 1.5rem;
+}
+button {
+  background: transparent;
+  border: 1px solid $oc-gray-0;
+}
+*:focus-visible {
+  outline: 2px solid $oc-blue-4;
+  outline-offset: 0.3rem; 
+}
+a {
+  color: $oc-blue-4;
+  transition: all $time-transitions;
+  
+
+  &:hover {
+    color: $oc-cyan-4;
+    text-decoration: underline $oc-cyan-4;
+  }
+}
+
+[lang="en"] { direction: ltr; }
+[lang="fa"] { direction: rtl; }
