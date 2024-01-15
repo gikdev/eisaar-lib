@@ -6,7 +6,7 @@
           <th v-for="heading in headings">{{ heading }}</th>
           <th>ویرایش ها</th>
         </tr>
-        <tr v-for="(item, i) in itemsArr">
+        <tr v-for="(item, i) in items">
           <td v-for="val in item">
             <span v-if="(typeof val) === 'boolean'">
               <IconCheckCircle v-if="val"  class="icon icon--green" />
@@ -37,7 +37,7 @@
   export default {
     props: [ 
       'headings', 
-      'itemsArr', 
+      'items', 
       'itemChangeFn', 
       'itemDeletionFn', 
       'itemAdditionFn', 

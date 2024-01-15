@@ -1,6 +1,6 @@
 <template>
   <Table 
-    :itemsArr="borrowingsArr" 
+    :items="borrowings" 
     :headings="borrowingsHeadings" 
     :itemChangeFn="borrowingChangeFn"
     :itemDeletionFn="borrowingDeletionFn"
@@ -11,7 +11,7 @@
 <script>
   export default {
     props: [ 
-      "borrowingsArr", 
+      "borrowings", 
       "borrowingsHeadings", 
       'borrowingChangeFn', 
       'borrowingDeletionFn', 

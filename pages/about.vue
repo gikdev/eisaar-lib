@@ -26,6 +26,10 @@
         <IconWrench style="font-size: 1.5rem;" class="icon" />
         <a href="https://yeun.github.io/open-color/" class="tool">OpenColor</a>
       </li>
+      <li>
+        <IconWrench style="font-size: 1.5rem;" class="icon" />
+        <a href="https://nuxt.com/" class="tool">NuxtJS</a>
+      </li>
     </ul>
   </section>
 </template>

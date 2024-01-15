@@ -1,6 +1,6 @@
 <template>
   <Table 
-    :itemsArr="membersArr" 
+    :items="members" 
     :headings="membersHeadings" 
     :itemChangeFn="memberChangeFn"
     :itemDeletionFn="memberDeletionFn"
@@ -10,7 +10,7 @@
 <script>
   export default {
     props: [
-      'membersArr', 
+      'members', 
       'membersHeadings', 
       'memberChangeFn', 
       'memberDeletionFn',  

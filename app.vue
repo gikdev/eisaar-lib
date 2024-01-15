@@ -1,13 +1,13 @@
 <template>
   <NuxtLayout>
     <NuxtPage
-      :borrowingsArr="borrowingsArr"
+      :borrowings="borrowings"
       :borrowingsHeadings="borrowingsHeadings"
       :borrowingChangeFn="changeBorrowing"
       :borrowingDeletionFn="deleteBorrowing"
       :borrowingAdditionFn="addBorrowing"
       
-      :membersArr="membersArr"
+      :members="members"
       :membersHeadings="membersHeadings"
       :memberChangeFn="changeMember"
       :memberDeletionFn="deleteMember"
@@ -50,65 +50,65 @@
   export default {
     data() {
       return {
-        borrowingsArr: [],
+        borrowings: [],
         borrowingsHeadings: [ 'آیدی', 'عضو', 'کتاب',  'تاریخ گرفتن',  'تاریخ بازگرداندن',  'بازگردانده', ],
-        membersArr: [],
+        members: [],
         membersHeadings: ['آیدی', 'نام', 'نام خانوادگی'],
-        appVersion: '1.0.0',
-        isAdmin: false
+        appVersion: '2.1.0',
+        isAdmin: true
       }
     },
     mounted() {
-      this.getDataFromAPI()
+      // this.getDataFromAPI()
     },
     methods: {
       changeBorrowing(i) {
-        const selectedBorrowing = this.borrowingsArr[i]
+        const selectedBorrowing = this.borrowings[i]
         selectedBorrowing.member = prompt('نام کاربر:', selectedBorrowing.member)
         selectedBorrowing.book = prompt('نام کتاب:', selectedBorrowing.book)
         selectedBorrowing.from = prompt('تاریخ گرفتن کتاب:', selectedBorrowing.from)
         selectedBorrowing.to = prompt('تاریخ دادن کتاب:', selectedBorrowing.to)
         selectedBorrowing.isDone = confirm('آیا کتاب پس داده؟')
 
-        this.sendDataToAPI()
+        // this.sendDataToAPI()
       },
       deleteBorrowing(i) {
-        this.borrowingsArr.splice(i, 1)
+        this.borrowings.splice(i, 1)
 
-        this.sendDataToAPI()
+        // this.sendDataToAPI()
       },
       addBorrowing() {
-        const id = (this.borrowingsArr.length) ? this.borrowingsArr.at(-1).id + 1 : 0
+        const id = (this.borrowings.length) ? this.borrowings.at(-1).id + 1 : 0
         const member = prompt('نام کاربر:', 'کاربر ناشناس')
         const book = prompt('نام کتاب:', 'کتاب ناشناس')
         const from = prompt('تاریخ گرفتن کتاب:', '0000-00-00')
         const to = prompt('تاریخ دادن کتاب:', '0000-00-00')
         const isDone = confirm('آیا کتاب پس داده؟')
 
-        this.borrowingsArr.push({ id, member, book, from, to, isDone })
+        this.borrowings.push({ id, member, book, from, to, isDone })
 
-        this.sendDataToAPI()
+        // this.sendDataToAPI()
       },
       changeMember(i) {
-        const selectedMember = this.membersArr[i]
+        const selectedMember = this.members[i]
         selectedMember.firstName = prompt('نام:', selectedMember.firstName)
         selectedMember.lastName = prompt('نام خانوادگی:', selectedMember.lastName)
 
-        this.sendDataToAPI()
+        // this.sendDataToAPI()
       },
       deleteMember(i) {
-        this.membersArr.splice(i, 1)
+        this.members.splice(i, 1)
 
-        this.sendDataToAPI()
+        // this.sendDataToAPI()
       },
       addMember() {
-        const id = (this.membersArr.length != 0) ? this.membersArr.at(-1).id + 1 : 0
+        const id = (this.members.length != 0) ? this.members.at(-1).id + 1 : 0
         const firstName = prompt('نام:', 'ناشناس')
         const lastName = prompt('نام خانوادگی: ', 'ناشناس وند')
 
-        this.membersArr.push({ id, firstName, lastName })
+        this.members.push({ id, firstName, lastName })
 
-        this.sendDataToAPI()
+        // this.sendDataToAPI()
       },
       uploadFile() {
         const label = document.querySelector(`label[for="data-file-input"]`)
@@ -117,10 +117,9 @@
       downloadFile() {
         let data = ''
         data += `{`
-          data += `"borrowingsArr": ${JSON.stringify(this.borrowingsArr)},`
-          data += `"borrowingsHeadings": ${JSON.stringify(this.borrowingsHeadings)},`
-          data += `"membersArr": ${JSON.stringify(this.membersArr)},`
-          data += `"membersHeadings": ${JSON.stringify(this.membersHeadings)}`
+          data += `"borrowings": ${JSON.stringify(this.borrowings)}`
+          data += `,`
+          data += `"members": ${JSON.stringify(this.members)}`
         data += `}`
         download(data)
       },
@@ -130,11 +129,9 @@
         const reader = new FileReader()
         reader.readAsText(file, "UTF-8")
         reader.onload = e => {
-          const { borrowingsArr, membersArr, borrowingsHeadings, membersHeadings,  } = JSON.parse(e.target.result)
-          this.borrowingsArr = borrowingsArr
-          this.borrowingsHeadings = borrowingsHeadings
-          this.membersArr = membersArr
-          this.membersHeadings = membersHeadings
+          const { borrowings, members  } = JSON.parse(e.target.result)
+          this.borrowings = borrowings
+          this.members = members
         }
         reader.onerror = e => {
           alert('خطا در خواندن فایل! دوباره تلاش کنید...')
@@ -154,21 +151,22 @@
       async getDataFromAPI() {
         const res = await fetch('https://eisaar-lib.liara.run/data')
         const data = await res.json()
-        const { borrowingsArr, membersArr, borrowingsHeadings, membersHeadings,  } = data
-        this.borrowingsArr = borrowingsArr
+        const { borrowings, members, borrowingsHeadings, membersHeadings,  } = data
+        this.borrowings = borrowings
         this.borrowingsHeadings = borrowingsHeadings
-        this.membersArr = membersArr
+        this.members = members
         this.membersHeadings = membersHeadings
       },
       sendDataToAPI() {
+        // fetch("https://localhost:6666/data", {
         fetch("https://eisaar-lib.liara.run/data", {
           method: "POST",
           mode: 'no-cors',
-          headers: {'Content-Type': 'application/json'}, 
+          headers: {'Content-Type': 'text/plain'}, 
           body: JSON.stringify({
-            borrowingsArr: this.borrowingsArr,
+            borrowings: this.borrowings,
             borrowingsHeadings: this.borrowingsHeadings,
-            membersArr: this.membersArr,
+            members: this.members,
             membersHeadings: this.membersHeadings,
           })
         })
